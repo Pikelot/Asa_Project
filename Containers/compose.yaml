@@ -1,0 +1,18 @@
+services:    
+  dns:
+    build:
+      context: ./Containers/DNS
+      dockerfile: Dockerfile
+    image: dns
+    container_name: dns
+    restart: always
+    tty: true
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    networks:
+      - beach-network
+
+networks:
+  beach-network:
+    driver: bridge
