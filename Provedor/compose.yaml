@@ -12,6 +12,8 @@ services:
       - "53:53/udp"
     networks:
       - beach-network
+    volumes:
+      - ./Config/ /etc/bind
 
 networks:
   beach-network:
