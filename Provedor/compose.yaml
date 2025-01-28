@@ -13,7 +13,7 @@ services:
     networks:
       - beach-network
     volumes:
-      - .Containers/DNS/Config/ /etc/bind
+      - ./Containers/DNS/Config /etc/bind
 
 networks:
   beach-network:
