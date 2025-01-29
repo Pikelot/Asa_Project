@@ -8,7 +8,7 @@ RUN apt-get update
 
 RUN apt-get install postfix dovecot-imapd dovecot-pop3d syslog-ng -y
 
-COPY main.cf /etc/postfix
+#COPY main.cf /etc/postfix
 
 #adicionar usuário
 RUN useradd -m usuario
