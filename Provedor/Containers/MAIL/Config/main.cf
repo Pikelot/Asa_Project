@@ -6,7 +6,7 @@
 # is /etc/mailname.
 
 # myorigin = /etc/mailname
-myorigin = joao.asa.br
+myorigin = praia.domeio.com
 
 # smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
 smtpd_banner = ASA ESMTP Server
@@ -38,7 +38,7 @@ smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
 # myhostname = localhost
-myhostname = mail.joao.asa.br
+myhostname = mail.praia.domeio.com
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 #mydestination = $myhostname, localhost, localhost.localdomain, localhost
