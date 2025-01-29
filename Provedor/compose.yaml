@@ -51,6 +51,16 @@ services:
       - ./Containers/MAIL/Config/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./Containers/MAIL/Data:/var/mail
 
+  webmail:
+    image: roundcube/roundcubemail:latest
+    container_name: webmail
+    networks:
+      - beach-network
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=email # Nome do serviço de email no Docker
+      - ROUNDCUBEMAIL_SMTP_SERVER=email
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite # Usando SQLite para simplificar
+      
 networks:
   beach-network:
     driver: bridge
