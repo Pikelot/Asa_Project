@@ -1,3 +1,6 @@
+<?php
+$config['imap_host'] = 'tls://email:143';  # Usar STARTTLS
+$config['smtp_host'] = 'tls://email:587';
 $config['imap_conn_options'] = [
   'ssl' => [
     'verify_peer' => false,
