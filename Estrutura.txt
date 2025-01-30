@@ -1,8 +1,7 @@
 Estrutura:
-
-Provedor/
+  Provedor/
 	compose.yaml
-	proxy/
+	PROXY/
 		dockerfile
 		config/
 			default.conf
@@ -10,20 +9,24 @@ Provedor/
 			ssl/
 				nginx-selfsigned.crt
 				nginx-selfsigned.key
-	dns/
+	DNS/
 		dockerfile
 		config/
 			db.praia.domeio.com
 			named.conf.local
-	email/
-    dockerfile
+	MAIL/
+    Dockerfile
     Config/
       dovecot.conf
       main.cf
+  WEBMAIL/
+    Dockerfile
+    Config/
+      config.inc.php
 
 Arquivos de config:
+  Provedor
 
-Provedor
   compose.yaml:
 
     services:    
@@ -77,7 +80,19 @@ Provedor
         volumes:
           - ./Containers/MAIL/Config/main.cf:/etc/postfix/main.cf
           - ./Containers/MAIL/Config/dovecot.conf:/etc/dovecot/dovecot.conf
+          - ./Containers/MAIL/Data:/var/mail
 
+      webmail:
+        image: roundcube/roundcubemail:latest
+        container_name: webmail
+        networks:
+          - beach-network
+        environment:
+          - ROUNDCUBEMAIL_DEFAULT_HOST=email
+          - ROUNDCUBEMAIL_SMTP_SERVER=email
+          - ROUNDCUBEMAIL_DB_TYPE=sqlite
+        volumes:
+          - ./Containers/WEBMAIL/Config/config.inc.php:/var/roundcube/config/config.inc.php
     networks:
       beach-network:
         driver: bridge
@@ -105,6 +120,7 @@ Provedor
 
       ns      IN  A   10.0.2.15
       mail    IN  A   10.0.2.15
+      webmail IN  A   10.0.2.15
       www     IN  A   10.0.2.15
       proxy   IN  CNAME www
 
@@ -167,6 +183,30 @@ Provedor
           }
       }
 
+      server {
+          listen 443 ssl;
+          server_name webmail.praia.domeio.com;
+
+          ssl_certificate /etc/nginx/ssl/nginx-selfsigned.crt;
+          ssl_certificate_key /etc/nginx/ssl/nginx-selfsigned.key;
+
+          location / {
+              proxy_pass http://webmail; # Nome do serviço no Docker
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+          }
+      }
+
+      #Redirecionamento http - https do webmail
+      server {
+          listen 80;
+          server_name webmail.praia.domeio.com;
+          return 301 https://$host$request_uri;
+      }
+
+      #Redirecionamento http - https do proxy
       server {
           listen 80;
           server_name proxy.praia.domeio.com;
@@ -266,168 +306,190 @@ Provedor
     }
 
   MAIL:
-  <>
-  dovecot.conf:
+    <>
+    dovecot.conf:
 
-    ## Dovecot configuration file
+      ## Dovecot configuration file
 
-    # If you're in a hurry, see http://wiki2.dovecot.org/QuickConfiguration
+      # If you're in a hurry, see http://wiki2.dovecot.org/QuickConfiguration
 
-    # "doveconf -n" command gives a clean output of the changed settings. Use it
-    # instead of copy&pasting files when posting to the Dovecot mailing list.
+      # "doveconf -n" command gives a clean output of the changed settings. Use it
+      # instead of copy&pasting files when posting to the Dovecot mailing list.
 
-    # '#' character and everything after it is treated as comments. Extra spaces
-    # and tabs are ignored. If you want to use either of these explicitly, put the
-    # value inside quotes, eg.: key = "# char and trailing whitespace  "
+      # '#' character and everything after it is treated as comments. Extra spaces
+      # and tabs are ignored. If you want to use either of these explicitly, put the
+      # value inside quotes, eg.: key = "# char and trailing whitespace  "
 
-    # Most (but not all) settings can be overridden by different protocols and/or
-    # source/destination IPs by placing the settings inside sections, for example:
-    # protocol imap { }, local 127.0.0.1 { }, remote 10.0.0.0/8 { }
+      # Most (but not all) settings can be overridden by different protocols and/or
+      # source/destination IPs by placing the settings inside sections, for example:
+      # protocol imap { }, local 127.0.0.1 { }, remote 10.0.0.0/8 { }
 
-    # Default values are shown for each setting, it's not required to uncomment
-    # those. These are exceptions to this though: No sections (e.g. namespace {})
-    # or plugin settings are added by default, they're listed only as examples.
-    # Paths are also just examples with the real defaults being based on configure
-    # options. The paths listed here are for configure --prefix=/usr
-    # --sysconfdir=/etc --localstatedir=/var
+      # Default values are shown for each setting, it's not required to uncomment
+      # those. These are exceptions to this though: No sections (e.g. namespace {})
+      # or plugin settings are added by default, they're listed only as examples.
+      # Paths are also just examples with the real defaults being based on configure
+      # options. The paths listed here are for configure --prefix=/usr
+      # --sysconfdir=/etc --localstatedir=/var
 
-    # Enable installed protocols
-    !include_try /usr/share/dovecot/protocols.d/*.protocol
+      # Enable installed protocols
+      !include_try /usr/share/dovecot/protocols.d/*.protocol
 
-    # A comma separated list of IPs or hosts where to listen in for connections. 
-    # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
-    # If you want to specify non-default ports or anything more complex,
-    # edit conf.d/master.conf.
-    #listen = *, ::
+      # A comma separated list of IPs or hosts where to listen in for connections. 
+      # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
+      # If you want to specify non-default ports or anything more complex,
+      # edit conf.d/master.conf.
+      #listen = *, ::
 
-    # Base directory where to store runtime data.
-    #base_dir = /var/run/dovecot/
+      # Base directory where to store runtime data.
+      #base_dir = /var/run/dovecot/
 
-    # Name of this instance. In multi-instance setup doveadm and other commands
-    # can use -i <instance_name> to select which instance is used (an alternative
-    # to -c <config_path>). The instance name is also added to Dovecot processes
-    # in ps output.
-    #instance_name = dovecot
+      # Name of this instance. In multi-instance setup doveadm and other commands
+      # can use -i <instance_name> to select which instance is used (an alternative
+      # to -c <config_path>). The instance name is also added to Dovecot processes
+      # in ps output.
+      #instance_name = dovecot
 
-    # Greeting message for clients.
-    #login_greeting = Dovecot ready.
+      # Greeting message for clients.
+      #login_greeting = Dovecot ready.
 
-    # Space separated list of trusted network ranges. Connections from these
-    # IPs are allowed to override their IP addresses and ports (for logging and
-    # for authentication checks). disable_plaintext_auth is also ignored for
-    # these networks. Typically you'd specify your IMAP proxy servers here.
-    #login_trusted_networks =
+      # Space separated list of trusted network ranges. Connections from these
+      # IPs are allowed to override their IP addresses and ports (for logging and
+      # for authentication checks). disable_plaintext_auth is also ignored for
+      # these networks. Typically you'd specify your IMAP proxy servers here.
+      #login_trusted_networks =
 
-    # Space separated list of login access check sockets (e.g. tcpwrap)
-    #login_access_sockets = 
+      # Space separated list of login access check sockets (e.g. tcpwrap)
+      #login_access_sockets = 
 
-    # With proxy_maybe=yes if proxy destination matches any of these IPs, don't do
-    # proxying. This isn't necessary normally, but may be useful if the destination
-    # IP is e.g. a load balancer's IP.
-    #auth_proxy_self =
+      # With proxy_maybe=yes if proxy destination matches any of these IPs, don't do
+      # proxying. This isn't necessary normally, but may be useful if the destination
+      # IP is e.g. a load balancer's IP.
+      #auth_proxy_self =
 
-    # Show more verbose process titles (in ps). Currently shows user name and
-    # IP address. Useful for seeing who are actually using the IMAP processes
-    # (eg. shared mailboxes or if same uid is used for multiple accounts).
-    #verbose_proctitle = no
+      # Show more verbose process titles (in ps). Currently shows user name and
+      # IP address. Useful for seeing who are actually using the IMAP processes
+      # (eg. shared mailboxes or if same uid is used for multiple accounts).
+      #verbose_proctitle = no
 
-    # Should all processes be killed when Dovecot master process shuts down.
-    # Setting this to "no" means that Dovecot can be upgraded without
-    # forcing existing client connections to close (although that could also be
-    # a problem if the upgrade is e.g. because of a security fix).
-    #shutdown_clients = yes
+      # Should all processes be killed when Dovecot master process shuts down.
+      # Setting this to "no" means that Dovecot can be upgraded without
+      # forcing existing client connections to close (although that could also be
+      # a problem if the upgrade is e.g. because of a security fix).
+      #shutdown_clients = yes
 
-    # If non-zero, run mail commands via this many connections to doveadm server,
-    # instead of running them directly in the same process.
-    #doveadm_worker_count = 0
-    # UNIX socket or host:port used for connecting to doveadm server
-    #doveadm_socket_path = doveadm-server
+      # If non-zero, run mail commands via this many connections to doveadm server,
+      # instead of running them directly in the same process.
+      #doveadm_worker_count = 0
+      # UNIX socket or host:port used for connecting to doveadm server
+      #doveadm_socket_path = doveadm-server
 
-    # Space separated list of environment variables that are preserved on Dovecot
-    # startup and passed down to all of its child processes. You can also give
-    # key=value pairs to always set specific settings.
-    #import_environment = TZ
+      # Space separated list of environment variables that are preserved on Dovecot
+      # startup and passed down to all of its child processes. You can also give
+      # key=value pairs to always set specific settings.
+      #import_environment = TZ
 
-    ##
-    ## Dictionary server settings
-    ##
+      ##
+      ## Dictionary server settings
+      ##
 
-    # Dictionary can be used to store key=value lists. This is used by several
-    # plugins. The dictionary can be accessed either directly or though a
-    # dictionary server. The following dict block maps dictionary names to URIs
-    # when the server is used. These can then be referenced using URIs in format
-    # "proxy::<name>".
+      # Dictionary can be used to store key=value lists. This is used by several
+      # plugins. The dictionary can be accessed either directly or though a
+      # dictionary server. The following dict block maps dictionary names to URIs
+      # when the server is used. These can then be referenced using URIs in format
+      # "proxy::<name>".
 
-    dict {
-      #quota = mysql:/etc/dovecot/dovecot-dict-sql.conf.ext
-    }
+      dict {
+        #quota = mysql:/etc/dovecot/dovecot-dict-sql.conf.ext
+      }
 
-    # Most of the actual configuration gets included below. The filenames are
-    # first sorted by their ASCII value and parsed in that order. The 00-prefixes
-    # in filenames are intended to make it easier to understand the ordering.
-    !include conf.d/*.conf
+      # Most of the actual configuration gets included below. The filenames are
+      # first sorted by their ASCII value and parsed in that order. The 00-prefixes
+      # in filenames are intended to make it easier to understand the ordering.
+      !include conf.d/*.conf
 
-    # A config file can also tried to be included without giving an error if
-    # it's not found:
-    !include_try local.conf
+      # A config file can also tried to be included without giving an error if
+      # it's not found:
+      !include_try local.conf
 
-  <>
-  main.cf:
+      protocols = imap pop3 lmtp
 
-    # See /usr/share/postfix/main.cf.dist for a commented, more complete version
+      ssl = required
+      ssl_cert = </etc/dovecot/ssl/dovecot.pem
+      ssl_key = </etc/dovecot/ssl/dovecot.key
 
+      auth_mechanisms = plain login
+      passdb {
+        driver = pam
+      }
+      userdb {
+        driver = passwd
+      }
 
-    # Debian specific:  Specifying a file name will cause the first
-    # line of that file to be used as the name.  The Debian default
-    # is /etc/mailname.
+      service auth {
+        unix_listener /var/spool/postfix/private/auth {
+          mode = 0660
+          user = postfix
+          group = postfix
+        }
+      }
 
-    # myorigin = /etc/mailname
-    myorigin = praia.domeio.com
+    <>
+    main.cf:
 
-    # smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
-    smtpd_banner = ASA ESMTP Server
-    biff = no
-
-    # appending .domain is the MUA's job.
-    append_dot_mydomain = no
-
-    # Uncomment the next line to generate "delayed mail" warnings
-    #delay_warning_time = 4h
-
-    readme_directory = no
-
-    # See http://www.postfix.org/COMPATIBILITY_README.html -- default to 3.6 on
-    # fresh installs.
-    compatibility_level = 3.6
+      # See /usr/share/postfix/main.cf.dist for a commented, more complete version
 
 
+      # Debian specific:  Specifying a file name will cause the first
+      # line of that file to be used as the name.  The Debian default
+      # is /etc/mailname.
 
-    # TLS parameters
-    smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-    smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
-    smtpd_tls_security_level=may
+      # myorigin = /etc/mailname
+      myorigin = praia.domeio.com
 
-    smtp_tls_CApath=/etc/ssl/certs
-    smtp_tls_security_level=may
-    smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+      # smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+      smtpd_banner = ASA ESMTP Server
+      biff = no
+
+      # appending .domain is the MUA's job.
+      append_dot_mydomain = no
+
+      # Uncomment the next line to generate "delayed mail" warnings
+      #delay_warning_time = 4h
+
+      readme_directory = no
+
+      # See http://www.postfix.org/COMPATIBILITY_README.html -- default to 3.6 on
+      # fresh installs.
+      compatibility_level = 3.6
 
 
-    smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-    # myhostname = localhost
-    myhostname = mail.praia.domeio.com
-    alias_maps = hash:/etc/aliases
-    alias_database = hash:/etc/aliases
-    #mydestination = $myhostname, localhost, localhost.localdomain, localhost
-    mydestination =$myhostname, localhost, localhost.localdomain, localhost
-    relayhost = 
-    mynetworks = 127.0.0.0/8 10.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
-    mailbox_size_limit = 0
-    recipient_delimiter = +
-    inet_interfaces = all
-    inet_protocols = all
 
-  <>
-  dockerfile_email:
+      # TLS parameters
+      smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+      smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+      smtpd_tls_security_level=may
+
+      smtp_tls_CApath=/etc/ssl/certs
+      smtp_tls_security_level=may
+      smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+
+      smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+      # myhostname = localhost
+      myhostname = mail.praia.domeio.com
+      alias_maps = hash:/etc/aliases
+      alias_database = hash:/etc/aliases
+      #mydestination = $myhostname, localhost, localhost.localdomain, localhost
+      mydestination =$myhostname, localhost, localhost.localdomain, localhost
+      relayhost = 
+      mynetworks = 127.0.0.0/8 10.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+      mailbox_size_limit = 0
+      recipient_delimiter = +
+      inet_interfaces = all
+      inet_protocols = all
+
+    <>
+    dockerfile_email:
 
     FROM ubuntu:latest
 
@@ -449,4 +511,18 @@ Provedor
     RUN echo "usuario2:redes" | chpasswd
 
     CMD ["sh", "-c", "service syslog-ng start ; service postfix start ; service dovecot start; tail -F /var/log/mail.log"]
-
+  
+  WEBMAIL:
+    <>
+    config.inc.php:
+      $config['imap_conn_options'] = [
+        'ssl' => [
+          'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+        ]
+      ];
+    
+    <>
+    Dockerfile do webmail:
+      FROM roundcube/roundcubemail:latest
