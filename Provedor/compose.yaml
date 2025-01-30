@@ -57,9 +57,9 @@ services:
     networks:
       - beach-network
     environment:
-      - ROUNDCUBEMAIL_DEFAULT_HOST=email # Nome do serviço de email no Docker
+      - ROUNDCUBEMAIL_DEFAULT_HOST=email
       - ROUNDCUBEMAIL_SMTP_SERVER=email
-      - ROUNDCUBEMAIL_DB_TYPE=sqlite # Usando SQLite para simplificar
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite
       
 networks:
   beach-network:

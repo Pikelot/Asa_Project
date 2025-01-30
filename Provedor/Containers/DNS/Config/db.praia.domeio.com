@@ -17,5 +17,6 @@ $TTL	604800
 
 ns      IN  A   10.0.2.15
 mail    IN  A   10.0.2.15
+webmail IN  A   10.0.2.15
 www     IN  A   10.0.2.15
 proxy   IN  CNAME www
