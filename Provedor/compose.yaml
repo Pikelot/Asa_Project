@@ -60,7 +60,8 @@ services:
       - ROUNDCUBEMAIL_DEFAULT_HOST=email
       - ROUNDCUBEMAIL_SMTP_SERVER=email
       - ROUNDCUBEMAIL_DB_TYPE=sqlite
-      
+    volumes:
+      - ./WEBMAIL/Config/config.inc.php:/var/roundcube/config/config.inc.php
 networks:
   beach-network:
     driver: bridge
