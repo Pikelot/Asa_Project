@@ -1,6 +1,6 @@
 <?php
-$config['smtp_host'] = 'email';
-$config['smtp_port'] = 587;
+$config['imap_host'] = 'ssl://email';
+$config['imap_port'] = 993;
 $config['smtp_user'] = '%u'; // se autenticação for necessária
 $config['smtp_pass'] = '%p'; // se autenticação for necessária
 $config['imap_host'] = 'email';
