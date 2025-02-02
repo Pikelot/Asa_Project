@@ -20,3 +20,4 @@ mail    IN  A   10.0.2.15
 webmail IN  A   10.0.2.15
 www     IN  A   10.0.2.15
 proxy   IN  CNAME www
+praia.domeio.com. IN A 10.0.2.15

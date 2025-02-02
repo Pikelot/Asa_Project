@@ -99,30 +99,29 @@ Arquivos de config:
 
   DNS:
     <>
-    db.praia.domeio.com:
+    ;
+    ; BIND data file for local loopback interface
+    ;
+    $ORIGIN praia.domeio.com.
+    $TTL	604800
 
-      ;
-      ; BIND data file for local loopback interface
-      ;
-      $ORIGIN praia.domeio.com.
-      $TTL	604800
+    @   IN  SOA ns.praia.domeio.com. root.praia.domeio.com. (
+                1		; Serial
+          604800		; Refresh
+            86400		; Retry
+          2419200		; Expire
+          604800 )	; Negative Cache TTL
+    ;
+    @	IN	NS	ns.praia.domeio.com.
+    @	IN	MX	10	mail.praia.domeio.com.
+    @	IN	MX	10	praia.domeio.com.
+    @	IN	A	10.0.2.15
 
-      @   IN  SOA ns.praia.domeio.com. root.praia.domeio.com. (
-                  1		; Serial
-            604800		; Refresh
-              86400		; Retry
-            2419200		; Expire
-            604800 )	; Negative Cache TTL
-      ;
-      @	IN	NS	ns.praia.domeio.com.
-      @	IN	MX	10	mail.praia.domeio.com.
-      @	IN	A	10.0.2.15
-
-      ns      IN  A   10.0.2.15
-      mail    IN  A   10.0.2.15
-      webmail IN  A   10.0.2.15
-      www     IN  A   10.0.2.15
-      proxy   IN  CNAME www
+    ns      IN  A   10.0.2.15
+    mail    IN  A   10.0.2.15
+    webmail IN  A   10.0.2.15
+    www     IN  A   10.0.2.15
+    proxy   IN  CNAME www
 
     <>
     named.conf.local:
@@ -411,28 +410,6 @@ Arquivos de config:
       # it's not found:
       !include_try local.conf
 
-      protocols = imap pop3 lmtp
-
-      ssl = required
-      ssl_cert = </etc/dovecot/ssl/dovecot.pem
-      ssl_key = </etc/dovecot/ssl/dovecot.key
-
-      auth_mechanisms = plain login
-      passdb {
-        driver = pam
-      }
-      userdb {
-        driver = passwd
-      }
-
-      service auth {
-        unix_listener /var/spool/postfix/private/auth {
-          mode = 0660
-          user = postfix
-          group = postfix
-        }
-      }
-
     <>
     main.cf:
 
@@ -469,6 +446,11 @@ Arquivos de config:
       smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
       smtpd_tls_security_level=may
 
+      smtpd_sasl_type = dovecot
+      smtpd_sasl_path = private/auth
+      smtpd_sasl_auth_enable = yes
+      smtpd_sasl_security_options = noanonymous
+
       smtp_tls_CApath=/etc/ssl/certs
       smtp_tls_security_level=may
       smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
@@ -480,7 +462,7 @@ Arquivos de config:
       alias_maps = hash:/etc/aliases
       alias_database = hash:/etc/aliases
       #mydestination = $myhostname, localhost, localhost.localdomain, localhost
-      mydestination =$myhostname, localhost, localhost.localdomain, localhost
+      mydestination =mydestination = $myhostname, praia.domeio.com, localhost, localhost.localdomain, localhost
       relayhost = 
       mynetworks = 127.0.0.0/8 10.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
       mailbox_size_limit = 0
@@ -491,30 +473,48 @@ Arquivos de config:
     <>
     dockerfile_email:
 
-    FROM ubuntu:latest
+      FROM ubuntu:latest
 
-    RUN apt update --fix-missing -y
+      RUN apt update --fix-missing -y
 
-    RUN apt upgrade -y
+      RUN apt upgrade -y
 
-    RUN apt-get update
+      RUN apt-get update
 
-    RUN apt-get install postfix dovecot-imapd dovecot-pop3d syslog-ng -y
+      RUN apt-get install postfix dovecot-imapd dovecot-pop3d syslog-ng -y
 
-    #COPY main.cf /etc/postfix
+      #COPY main.cf /etc/postfix
 
-    #adicionar usuário
-    RUN useradd -m usuario
-    RUN useradd -m usuario2
+      #adicionar usuário
+      RUN useradd -m usuario
+      RUN useradd -m usuario2
 
-    RUN echo "usuario:redes" | chpasswd
-    RUN echo "usuario2:redes" | chpasswd
+      RUN echo "usuario:redes" | chpasswd
+      RUN echo "usuario2:redes" | chpasswd
 
-    CMD ["sh", "-c", "service syslog-ng start ; service postfix start ; service dovecot start; tail -F /var/log/mail.log"]
-  
+      RUN mkdir -p /etc/doudcourier/ssl && \
+          openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+            -keyout /etc/doudcourier/ssl/dovecot.key \
+            -out /etc/doudcourier/ssl/dovecot.pem \
+            -subj "/CN=mail.praia.domeio.com"
+
+      # Crie Maildirs e defina permissões
+      RUN mkdir -p /home/usuario/Maildir /home/usuario2/Maildir && \
+          chown -R usuario:usuario /home/usuario && \
+          chown -R usuario2:usuario2 /home/usuario2 && \
+          chmod -R 700 /home/*/Maildir
+
+      CMD ["sh", "-c", "service syslog-ng start ; service postfix start ; service dovecot start; tail -F /var/log/mail.log"]
+
   WEBMAIL:
     <>
     config.inc.php:
+      <?php
+      $config['imap_host'] = 'tls://email:143';
+      $config['smtp_host'] = 'tls://email:25';
+      $config['smtp_server'] = 'tls://email:587';
+      #$config['username_domain'] = 'praia.domeio.com';
+      $config['mail_domain'] = 'praia.domeio.com';
       $config['imap_conn_options'] = [
         'ssl' => [
           'verify_peer' => false,
@@ -522,7 +522,3 @@ Arquivos de config:
           'allow_self_signed' => true
         ]
       ];
-    
-    <>
-    Dockerfile do webmail:
-      FROM roundcube/roundcubemail:latest
