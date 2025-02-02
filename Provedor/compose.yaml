@@ -50,6 +50,7 @@ services:
       - ./Containers/MAIL/Config/main.cf:/etc/postfix/main.cf
       - ./Containers/MAIL/Config/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./Containers/MAIL/Data:/var/mail
+      - ./Containers/PROXY/Config/ssl:/etc/dovecot/ssl
 
   webmail:
     image: roundcube/roundcubemail:latest
