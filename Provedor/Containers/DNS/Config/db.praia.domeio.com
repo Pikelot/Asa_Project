@@ -13,6 +13,7 @@ $TTL	604800
 ;
 @	IN	NS	ns.praia.domeio.com.
 @	IN	MX	10	mail.praia.domeio.com.
+@	IN	MX	10	praia.domeio.com.
 @	IN	A	10.0.2.15
 
 ns      IN  A   10.0.2.15
