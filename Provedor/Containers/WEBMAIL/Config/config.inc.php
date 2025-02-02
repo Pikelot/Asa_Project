@@ -1,7 +1,10 @@
 <?php
 $config['smtp_host'] = 'email';
 $config['smtp_port'] = 587;
-$config['smtp_server'] = 'tls://email:587';
+$config['smtp_user'] = '%u'; // se autenticação for necessária
+$config['smtp_pass'] = '%p'; // se autenticação for necessária
+$config['imap_host'] = 'email';
+$config['imap_port'] = 143;
 #$config['username_domain'] = 'praia.domeio.com';
 $config['mail_domain'] = 'praia.domeio.com';
 $config['imap_conn_options'] = [
