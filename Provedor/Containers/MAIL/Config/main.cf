@@ -35,6 +35,7 @@ smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
+smtp_sasl_mechanism_filter = login
 
 smtp_tls_CApath=/etc/ssl/certs
 smtp_tls_security_level=may
