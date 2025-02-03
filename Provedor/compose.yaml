@@ -48,6 +48,7 @@ services:
     volumes:
       - ./Containers/MAIL/Config/main.cf:/etc/postfix/main.cf
       - ./Containers/MAIL/Config/dovecot.conf:/etc/dovecot/dovecot.conf
+      - ./Containers/MAIL/Config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
       - ./Containers/MAIL/Data:/var/mail
       - ./Containers/MAIL/ssl:/etc/dovecot/ssl
 
