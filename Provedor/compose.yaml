@@ -1,5 +1,4 @@
 services:    
-  
   dns:
     build:
       context: ./Containers/DNS
@@ -50,7 +49,7 @@ services:
       - ./Containers/MAIL/Config/main.cf:/etc/postfix/main.cf
       - ./Containers/MAIL/Config/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./Containers/MAIL/Data:/var/mail
-      - ./Containers/PROXY/Config/ssl:/etc/dovecot/ssl
+      - ./Containers/MAIL/ssl:/etc/dovecot/ssl
 
   webmail:
     image: roundcube/roundcubemail:latest
@@ -58,8 +57,8 @@ services:
     networks:
       - beach-network
     environment:
-      - ROUNDCUBEMAIL_DEFAULT_HOST=email
-      - ROUNDCUBEMAIL_SMTP_SERVER=email
+      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://email:143
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://email:587
       - ROUNDCUBEMAIL_DB_TYPE=sqlite
     depends_on:
       - email
