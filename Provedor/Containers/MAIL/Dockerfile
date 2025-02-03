@@ -12,9 +12,13 @@ RUN echo "usuario:redes" | chpasswd
 RUN echo "usuario2:redes" | chpasswd
 
 # Create necessary directories and set permissions
-RUN mkdir -p /var/spool/postfix/private && \
-    chown postfix:postfix /var/spool/postfix/private && \
-    chmod 0750 /var/spool/postfix/private
+#RUN mkdir -p /var/spool/postfix/private && \
+#    chown postfix:postfix /var/spool/postfix/private && \
+#    chmod 0750 /var/spool/postfix/private
+
+#RUN mkdir -p /var/spool/postfix/private && \
+#    chown postfix:postfix /var/spool/postfix/private && \
+#    chmod 0750 /var/spool/postfix/private
 
 RUN mkdir -p /etc/dovecot/ssl && \
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
