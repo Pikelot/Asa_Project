@@ -32,4 +32,4 @@ RUN mkdir -p /home/usuario/Maildir /home/usuario2/Maildir && \
     chown -R usuario2:usuario2 /home/usuario2 && \
     chmod -R 700 /home/*/Maildir
 
-CMD ["sh", "-c", "service syslog-ng start ; service dovecot start ; service postfix start; tail -F /var/log/mail.log"]
+CMD ["sh", "-c", "service syslog-ng start ; service dovecot start && service postfix start; tail -F /var/log/mail.log"]
