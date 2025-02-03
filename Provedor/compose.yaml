@@ -58,7 +58,7 @@ services:
       - beach-network
     environment:
       - ROUNDCUBEMAIL_DEFAULT_HOST=tls://email:143
-      - ROUNDCUBEMAIL_SMTP_SERVER=tls://email:25
+      - ROUNDCUBEMAIL_SMTP_SERVER=localhost
       - ROUNDCUBEMAIL_DB_TYPE=sqlite
     depends_on:
       - email
