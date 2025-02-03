@@ -64,6 +64,7 @@ services:
       - email
     volumes:
       - ./Containers/WEBMAIL/Config/config.inc.php:/var/roundcube/config/config.inc.php
+      - ./Containers/MAIL/Config/ssl/email.crt:/etc/ssl/certs/email.crt:ro
 networks:
   beach-network:
     driver: bridge
