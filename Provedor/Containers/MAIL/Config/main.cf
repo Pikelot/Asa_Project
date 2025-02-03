@@ -64,3 +64,4 @@ smtpd_sasl_authenticated_header = yes
 broken_sasl_auth_clients = yes
 # Limita os mecanismos permitidos (os mais comuns são PLAIN e LOGIN)
 smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $myhostname

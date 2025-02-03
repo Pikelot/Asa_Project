@@ -1,17 +1,13 @@
 FROM ubuntu:latest
 
 RUN apt update --fix-missing -y
-
 RUN apt upgrade -y
-
 RUN apt-get update
-
 RUN apt-get install postfix dovecot-imapd dovecot-pop3d syslog-ng -y
 
 # Add users
 RUN useradd -m usuario
 RUN useradd -m usuario2
-
 RUN echo "usuario:redes" | chpasswd
 RUN echo "usuario2:redes" | chpasswd
 
@@ -32,4 +28,4 @@ RUN mkdir -p /home/usuario/Maildir /home/usuario2/Maildir && \
     chown -R usuario2:usuario2 /home/usuario2 && \
     chmod -R 700 /home/*/Maildir
 
-CMD ["sh", "-c", "service syslog-ng start ; service postfix start ; service dovecot start; tail -F /var/log/mail.log"]
+CMD ["sh", "-c", "service syslog-ng start ; service dovecot start ; service postfix start; tail -F /var/log/mail.log"]
