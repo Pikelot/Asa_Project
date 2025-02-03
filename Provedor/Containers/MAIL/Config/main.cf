@@ -52,10 +52,15 @@ inet_protocols = all
 
 # Delivery to Maildir format
 home_mailbox = Maildir/
-
-# Enable Dovecot SASL authentication
-smtpd_sasl_type = dovecot
-smtpd_sasl_path = private/auth
+# Habilita a autenticação SASL no servidor SMTP do Postfix
 smtpd_sasl_auth_enable = yes
+# Define que o Postfix usará o Dovecot como backend de SASL
+smtpd_sasl_type = dovecot
+# Informa ao Postfix onde está o socket de autenticação do Dovecot
+smtpd_sasl_path = private/auth
+# Se desejar que o Postfix adicione o cabeçalho informando o usuário autenticado
+smtpd_sasl_authenticated_header = yes
+# Caso clientes mais antigos tenham problemas, habilite essa opção
+broken_sasl_auth_clients = yes
+# Limita os mecanismos permitidos (os mais comuns são PLAIN e LOGIN)
 smtpd_sasl_security_options = noanonymous
-smtpd_sasl_local_domain = $myhostname
