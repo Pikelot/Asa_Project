@@ -57,7 +57,7 @@ smtpd_sasl_auth_enable = yes
 # Define que o Postfix usará o Dovecot como backend de SASL
 smtpd_sasl_type = dovecot
 # Informa ao Postfix onde está o socket de autenticação do Dovecot
-smtpd_sasl_path = private/auth
+smtpd_sasl_path = /var/spool/postfix/private/auth
 # Se desejar que o Postfix adicione o cabeçalho informando o usuário autenticado
 smtpd_sasl_authenticated_header = yes
 # Caso clientes mais antigos tenham problemas, habilite essa opção
