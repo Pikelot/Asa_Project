@@ -2,7 +2,7 @@
 $config['imap_host'] = 'tls://email:143';
 #$config['smtp_host'] = 'tls://email:587';
 $config['smtp_host'] = 'email';
-$config['smtp_port'] = 587;
+$config['smtp_port'] = 25;
 $config['smtp_user'] = '%u';
 $config['smtp_pass'] = '%p';
 $config['mail_domain'] = 'praia.domeio.com';
