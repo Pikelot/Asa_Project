@@ -20,7 +20,7 @@ RUN mkdir -p /etc/dovecot/ssl && \
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
       -keyout /etc/dovecot/ssl/dovecot.key \
       -out /etc/dovecot/ssl/dovecot.pem \
-      -subj "/CN=mail.praia.domeio.com"
+      -subj "/CN=domail.domeio.com"
 
 # Create Maildirs and set permissions
 RUN mkdir -p /home/usuario/Maildir /home/usuario2/Maildir && \

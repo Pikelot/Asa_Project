@@ -11,7 +11,7 @@ services:
     networks:
       - beach-network
     volumes:
-      - ./Containers/DNS/Config/db.praia.domeio.com:/etc/bind/db.beach.com
+      - ./Containers/DNS/Config/db.domeio.com:/etc/bind/db.domeio.com
       - ./Containers/DNS/Config/named.conf.local:/etc/bind/named.conf.local
     
   proxy:
