@@ -48,7 +48,7 @@ mynetworks = 127.0.0.0/8 10.0.0.0/8 172.19.0.0/16 [::ffff:127.0.0.0]/104 [::1]/1
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
-inet_protocols = all
+inet_protocols = ipv4
 
 # Delivery to Maildir format
 home_mailbox = Maildir/
