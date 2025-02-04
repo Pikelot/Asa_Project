@@ -1,8 +1,10 @@
 FROM ubuntu:latest
 
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 RUN apt update --fix-missing -y
 RUN apt upgrade -y
 RUN apt-get install postfix dovecot-imapd dovecot-pop3d syslog-ng -y
+RUN echo "nameserver 10.0.2.15" > /etc/resolv.conf
 
 # Add users
 RUN useradd -m usuario
