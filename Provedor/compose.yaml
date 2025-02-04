@@ -44,6 +44,8 @@ services:
       - "110:110/tcp"
       - "143:143/tcp"
       - "465:465/tcp" # Adicione esta linha para permitir conexões seguras na porta 465
+    dns:
+      - 10.0.2.15
     networks:
       - beach-network
     volumes:
