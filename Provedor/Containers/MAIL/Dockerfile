@@ -6,8 +6,8 @@ RUN apt-get update
 RUN apt-get install postfix dovecot-imapd dovecot-pop3d syslog-ng -y
 
 # Add users
-RUN useradd -m usuario
-RUN useradd -m usuario2
+RUN useradd -m -u 1001 usuario
+RUN useradd -m -u 1002 usuario2
 RUN echo "usuario:redes" | chpasswd
 RUN echo "usuario2:redes" | chpasswd
 
