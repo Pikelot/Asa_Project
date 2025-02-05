@@ -70,6 +70,18 @@ services:
     volumes:
       - ./Containers/WEBMAIL/Config/config.inc.php:/var/roundcube/config/config.inc.php
       - ./Containers/MAIL/Config/ssl/email.crt:/etc/ssl/certs/email.crt:ro
+
+  ssh:
+    build:
+      context: ./Containers/SSH
+      dockerfile: Dockerfile
+    image: ssh
+    container_name: ssh
+    ports:
+      - "22:22"
+    networks:
+      - beach-network
+
 networks:
   beach-network:
     driver: bridge
