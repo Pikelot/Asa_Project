@@ -55,6 +55,7 @@ services:
       - ./Containers/MAIL/Config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
       - ./Containers/MAIL/Data:/home
       - ./Containers/MAIL/ssl:/etc/dovecot/ssl
+      - shared-data:/shared
 
   webmail:
     image: roundcube/roundcubemail:latest
@@ -81,7 +82,13 @@ services:
       - "22:22"
     networks:
       - beach-network
+    volumes:
+      - shared-data:/shared
 
 networks:
   beach-network:
     driver: bridge
+
+volumes:
+  shared-data:
+    driver: local
