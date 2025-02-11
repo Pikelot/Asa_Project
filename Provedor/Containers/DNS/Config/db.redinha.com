@@ -1,20 +1,22 @@
 ;
-; BIND data file for local loopback interface
+; BIND data file for redinha.com
 ;
 $ORIGIN redinha.com.
 $TTL    604800
 
-@   IN  SOA ns.redinha.com. root.redinha.com. (
-                2       ; Serial
-          604800       ; Refresh
-            86400       ; Retry
-          2419200       ; Expire
-          604800 )    ; Negative Cache TTL
-;
-@   IN  NS  ns.redinha.com.
-@   IN  A   10.0.2.15
+@       IN  SOA ns.redinha.com. admin.redinha.com. (
+                2024060101      ; Serial (formato AAAAMMDDXX)
+                3600            ; Refresh
+                1800            ; Retry
+                1209600         ; Expire
+                86400 )         ; Negative Cache TTL
 
-ns      IN  A   10.0.2.15
-mail    IN  A   10.0.2.15
-www     IN  A   10.0.2.15
-proxy   IN  CNAME www
+; Nameservers
+@       IN  NS  ns.redinha.com.
+
+; Endereços IP
+@       IN  A   10.0.2.15       ; IP do servidor DNS (provedor)
+ns      IN  A   10.0.2.15       ; Nameserver
+mail    IN  A   10.0.2.15       ; Servidor de e-mail
+www     IN  A   10.0.2.15       ; Servidor web
+proxy   IN  CNAME www           ; Proxy reverso (aponta para www)
