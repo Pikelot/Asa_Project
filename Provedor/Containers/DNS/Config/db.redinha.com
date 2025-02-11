@@ -5,14 +5,13 @@ $ORIGIN redinha.com.
 $TTL    604800
 
 @   IN  SOA ns.redinha.com. root.redinha.com. (
-                1       ; Serial
+                2       ; Serial
           604800       ; Refresh
             86400       ; Retry
           2419200       ; Expire
           604800 )    ; Negative Cache TTL
 ;
 @   IN  NS  ns.redinha.com.
-@   IN  MX  10 mail.redinha.com.
 @   IN  A   10.0.2.15
 
 ns      IN  A   10.0.2.15
