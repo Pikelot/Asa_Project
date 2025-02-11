@@ -2,14 +2,12 @@ services:
   proxy:
     build:
       context: ./Containers/PROXY
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     image: proxy_redinha
     container_name: proxy_redinha
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - dns
     networks:
       - beach-network
     volumes:
