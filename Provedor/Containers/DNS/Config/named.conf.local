@@ -6,9 +6,15 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
-
-zone "domeio.com"{
+zone "domeio.com" {
     type master;
     file "/etc/bind/db.domeio.com";
-    allow-transfer{ any; };
+    allow-transfer { any; };
 };
+
+zone "redinha.com" {
+    type master;
+    file "/etc/bind/db.redinha.com";
+    allow-transfer { any; };
+};
+
