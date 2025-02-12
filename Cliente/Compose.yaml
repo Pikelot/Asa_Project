@@ -1,4 +1,30 @@
 services:    
+  db:
+    image: mariadb:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass
+    networks:
+      - beach-network
+    volumes:
+      - db_data:/var/lib/mysql
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - beach-network
+    volumes:
+      - wordpress_data:/var/www/html
   proxy:
     build:
       context: ./Containers/PROXY
@@ -19,48 +45,9 @@ services:
       - ./Containers/PROXY/Config/ssl:/etc/nginx/ssl
     dns:
       - 10.0.2.15  # Endereço IP do servidor DNS do provedor
-  web_redinha-velha:
-    image: wordpress:latest
-    container_name: web_redinha-velha
-    ports:
-      - "8081:80"
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: praieiro
-      WORDPRESS_DB_PASSWORD: redes
-    depends_on:
-      - db
-    networks:
-      - beach-network
-    volumes:
-      - wordpress:/var/www/html
-  web_redinha-nova:
-    image: wordpress
-    container_name: web_redinha-nova
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: praieiro
-      WORDPRESS_DB_PASSWORD: redes
-    depends_on:
-      - db
-    networks:
-      - beach-network
-    volumes:
-      - wordpress:/var/www/html
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: usuario
-      MYSQL_PASSWORD: redes
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    volumes:
-      - db:/var/lib/mysql
-
 volumes:
-  wordpress:
-  db:
+  db_data:
+  wordpress_data:
 
 networks:
   beach-network:
