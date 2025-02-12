@@ -1,5 +1,4 @@
 services:    
-  
   proxy:
     build:
       context: ./Containers/PROXY
@@ -27,7 +26,7 @@ services:
     ports:
       - "8081:80"
     environment:
-      WORDPRESS_DB_HOST: db_provider
+      WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: praieiro
       WORDPRESS_DB_PASSWORD: redes
     networks:
@@ -38,7 +37,7 @@ services:
     image: wordpress
     container_name: web_redinha-nova
     environment:
-      WORDPRESS_DB_HOST: db_provider
+      WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: praieiro
       WORDPRESS_DB_PASSWORD: redes
     networks:
@@ -55,7 +54,6 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - db:/var/lib/mysql
-
 
 volumes:
   wordpress:
