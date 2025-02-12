@@ -20,3 +20,5 @@ ns      IN  A   10.0.2.15       ; Nameserver
 mail    IN  A   10.0.2.15       ; Servidor de e-mail
 www     IN  A   10.0.2.15       ; Servidor web
 proxy   IN  CNAME www           ; Proxy reverso (aponta para www)
+
+wordpress.redinha.com IN A 10.0.2.15
