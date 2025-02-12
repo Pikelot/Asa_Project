@@ -27,7 +27,7 @@ services:
     networks:
       - beach-network
     volumes:
-      - ./Containers/WEB/html:/var/www/html
+      - wordpress:/var/www/html
   web_redinha-nova:
     image: wordpress:latest
     container_name: web_redinha-nova
@@ -38,7 +38,7 @@ services:
     networks:
       - beach-network
     volumes:
-      - ./Containers/WEB/html:/var/www/html
+      - wordpress:/var/www/html
 
 networks:
   beach-network:
