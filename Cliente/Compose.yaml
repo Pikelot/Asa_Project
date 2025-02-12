@@ -50,6 +50,11 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+
+volumes:
+  wordpress:
+  db:
+
 networks:
   beach-network:
     driver: bridge
