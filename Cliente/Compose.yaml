@@ -39,6 +39,16 @@ services:
       - beach-network
     volumes:
       - wordpress:/var/www/html
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: redes
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
 
 networks:
   beach-network:
