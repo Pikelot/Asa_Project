@@ -21,7 +21,7 @@ services:
     dns:
       - 10.0.2.15  # Endereço IP do servidor DNS do provedor
   web_redinha-velha:
-    image: wordpress
+    image: wordpress:latest
     container_name: web_redinha-velha
     ports:
       - "8081:80"
@@ -29,6 +29,8 @@ services:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: praieiro
       WORDPRESS_DB_PASSWORD: redes
+    depends_on:
+      - db
     networks:
       - beach-network
     volumes:
@@ -40,6 +42,8 @@ services:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: praieiro
       WORDPRESS_DB_PASSWORD: redes
+    depends_on:
+      - db
     networks:
       - beach-network
     volumes:
