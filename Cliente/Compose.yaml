@@ -20,7 +20,7 @@ services:
   web_redinha-velha:
     image: wordpress
     container_name: web_redinha-velha
-    ports:
+    #ports:
     #- 8080:80
     environment:
       WORDPRESS_DB_HOST: db_provider
