@@ -17,9 +17,9 @@ services:
       - ./Containers/PROXY/Config/ssl:/etc/nginx/ssl
     dns:
       - 10.0.2.15  # Endereço IP do servidor DNS do provedor
-  web:
+  web_redinha-velha:
     image: wordpress:latest
-    container_name: redinha_velha
+    container_name: web_redinha-velha
     environment:
       WORDPRESS_DB_HOST: db_provider
       WORDPRESS_DB_USER: praieiro
@@ -28,9 +28,9 @@ services:
       - beach-network
     volumes:
       - ./Containers/WEB/html:/var/www/html
-  web-back:
+  web_redinha-nova:
     image: wordpress:latest
-    container_name: redinha_nova
+    container_name: web_redinha-nova
     environment:
       WORDPRESS_DB_HOST: db_provider
       WORDPRESS_DB_USER: praieiro
