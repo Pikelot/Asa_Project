@@ -88,4 +88,4 @@ networks:
   beach-network:
     driver: bridge
   proxy-praia:
-    driver: bridge
+    external: true
