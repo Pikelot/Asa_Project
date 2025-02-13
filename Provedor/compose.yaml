@@ -89,4 +89,3 @@ networks:
     driver: bridge
   proxy-praia:
     driver: bridge
-    external: true
