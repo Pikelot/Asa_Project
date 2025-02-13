@@ -26,6 +26,21 @@ services:
       - proxy-praia
     volumes:
       - wordpress_data:/var/www/html
+  wordpress-2:
+    image: wordpress:latest
+    container_name: wordpress
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - beach-network
+      - proxy-praia
+    volumes:
+      - wordpress_data:/var/www/html
 
 volumes:
   db_data:
