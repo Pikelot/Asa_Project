@@ -28,6 +28,7 @@ services:
       - dns
     networks:
       - beach-network
+      - proxy-praia
     volumes:
       - ./Containers/PROXY/Config/default.conf:/etc/nginx/conf.d/default.conf
       - ./Containers/PROXY/Config/nginx.conf:/etc/nginx/nginx.conf
@@ -86,3 +87,5 @@ services:
 networks:
   beach-network:
     driver: bridge
+  proxy-praia:
+    external: true
