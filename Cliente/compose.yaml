@@ -38,4 +38,4 @@ networks:
   redinha-network:
     driver: bridge
   proxy-praia:
-    driver: true
+    external: true
