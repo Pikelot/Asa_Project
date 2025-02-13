@@ -14,6 +14,9 @@ services:
   wordpress:
     image: wordpress:latest
     container_name: wordpress
+    restart: always
+    hostname: wordpress
+    domainname: redinha.com
     depends_on:
       - db
     environment:
