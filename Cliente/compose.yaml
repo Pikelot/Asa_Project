@@ -23,6 +23,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     networks:
       - beach-network
+      - proxy-praia
     volumes:
       - wordpress_data:/var/www/html
 
