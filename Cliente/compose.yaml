@@ -11,6 +11,7 @@ services:
       - beach-network
     volumes:
       - db_data:/var/lib/mysql
+#Containers de wordpress, um e dois. (usados para balancear carga primariamente)
   wordpress:
     image: wordpress:latest
     container_name: wordpress
@@ -50,6 +51,7 @@ volumes:
   db_data:
   wordpress_data:
 
+#Redes {lembre-se sempre de criar a rede proxy praia com docker network create proxy-praia}
 networks:
   beach-network:
     driver: bridge
