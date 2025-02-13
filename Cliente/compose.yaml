@@ -28,7 +28,7 @@ services:
       - wordpress_data:/var/www/html
   wordpress-2:
     image: wordpress:latest
-    container_name: wordpress
+    container_name: wordpress-2
     depends_on:
       - db
     environment:
