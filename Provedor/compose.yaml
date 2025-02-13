@@ -22,8 +22,8 @@ services:
     image: proxy
     container_name: proxy
     ports:
-      - "8080:8080"
-      - "8443:8443"
+      - "80:80"
+      - "443:443"
     depends_on:
       - dns
     networks:
