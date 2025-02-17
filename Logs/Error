@@ -1,9 +1,0 @@
-email    | Feb  2 21:52:47 1c91ca24cb9a postfix/smtpd[345]: fatal: no SASL authentication mechanisms
-email    | Feb  2 21:52:48 1c91ca24cb9a postfix/master[330]: warning: process /usr/lib/postfix/sbin/smtpd pid 345 exit status 1
-email    | Feb  2 21:52:48 1c91ca24cb9a postfix/master[330]: warning: /usr/lib/postfix/sbin/smtpd: bad command startup -- throttling
-email    | Feb  2 21:53:52 1c91ca24cb9a postfix/smtpd[349]: connect from unknown[10.0.2.15]
-email    | Feb  2 21:53:52 1c91ca24cb9a postfix/smtpd[349]: improper command pipelining after CONNECT from unknown[10.0.2.15]: EHLO praia.domeio.com\r\nMAIL FROM:usuario@praia.domeio.com\r\n
-email    | Feb  2 21:53:52 1c91ca24cb9a postfix/smtpd[349]: warning: SASL: Connect to Dovecot auth socket 'private/auth' failed: No such file or directory
-email    | Feb  2 21:53:52 1c91ca24cb9a postfix/smtpd[349]: fatal: no SASL authentication mechanisms
-email    | Feb  2 21:53:53 1c91ca24cb9a postfix/master[330]: warning: process /usr/lib/postfix/sbin/smtpd pid 349 exit status 1
-email    | Feb  2 21:53:53 1c91ca24cb9a postfix/master[330]: warning: /usr/lib/postfix/sbin/smtpd: bad command startup -- throttling
