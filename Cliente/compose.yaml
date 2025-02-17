@@ -46,6 +46,16 @@ services:
       - proxy-praia
     volumes:
       - wordpress_data:/var/www/html
+  ssh:
+    build:
+      context: ./Containers/SSH
+      dockerfile: Dockerfile
+    image: ssh
+    container_name: ssh
+    ports:
+      - "2222:22"
+    networks:
+      - beach-network
 
 volumes:
   db_data:
