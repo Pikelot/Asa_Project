@@ -51,7 +51,7 @@ services:
       context: ./Containers/SSH
       dockerfile: Dockerfile
     image: ssh
-    container_name: ssh
+    container_name: ssh-redinha
     ports:
       - "2222:22"
     networks:
