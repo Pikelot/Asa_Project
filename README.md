@@ -4,20 +4,53 @@ Projeto da disciplina ASA_2025
 
 ## Descrição
 
-Este projeto configura um ambiente de servidor de e-mail completo utilizando Docker. Ele inclui serviços para DNS, Proxy, Email, Webmail e SSH.
+Este projeto configura um ambiente de servidor completo utilizando Docker. Ele inclui serviços para DNS, Proxy, Email, Webmail e SSH, além de dois clientes: Miami e Redinha.
 
 ## Estrutura do Projeto
 
 A estrutura do projeto é a seguinte:
 
-Provedor/
-    Docker Compose/
-        Containers/
-            DNS/
-            PROXY/
-            EMAIL/
-            WEBMAIL (Roundcube)/
-            SSH/
+```
+Asa_Project-5/
+├── Provedor/
+│   ├── compose.yaml
+│   └── Containers/
+│       ├── DNS/
+│       │   ├── Config/
+│       │   │   ├── db.domeio.com
+│       │   │   ├── db.redinha.com
+│       │   │   ├── db.miami.com
+│       │   │   └── named.conf.local
+│       │   └── Dockerfile
+│       ├── PROXY/
+│       │   ├── Config/
+│       │   │   ├── default.conf
+│       │   │   ├── nginx.conf
+│       │   │   └── ssl/
+│       │   └── Dockerfile
+│       ├── MAIL/
+│       │   ├── Config/
+│       │   │   ├── main.cf
+│       │   │   ├── dovecot.conf
+│       │   │   ├── 10-master.conf
+│       │   │   └── ssl/
+│       │   └── Dockerfile
+│       ├── WEBMAIL/
+│       │   └── Config/
+│       │       └── config.inc.php
+│       └── SSH/
+│           └── Dockerfile
+├── Cliente-Miami/
+│   ├── compose.yaml
+│   └── Containers/
+│       └── SSH/
+│           └── Dockerfile
+└── Cliente-Redinha/
+    ├── compose.yaml
+    └── Containers/
+        └── SSH/
+            └── Dockerfile
+```
 
 ## Serviços
 
@@ -41,29 +74,49 @@ Configura um cliente de webmail utilizando Roundcube. Arquivos de configuração
 
 Configura um servidor SSH para acesso remoto. Arquivos de configuração estão em [Provedor/Containers/SSH](Provedor/Containers/SSH).
 
+## Clientes
+
+### Cliente Miami
+
+Configura um ambiente de cliente para Miami utilizando WordPress e MariaDB. Arquivos de configuração estão em [Cliente-Miami](Cliente-Miami).
+
+### Cliente Redinha
+
+Configura um ambiente de cliente para Redinha utilizando WordPress e MariaDB. Arquivos de configuração estão em [Cliente-Redinha](Cliente-Redinha).
+
 ## Como Usar
 
 1. Clone o repositório:
     ```sh
     git clone <URL_DO_REPOSITORIO>
-    cd Asa_Project
+    cd Asa_Project-5
     ```
 
-2. Construa e inicie os containers:
+2. Construa e inicie os containers do provedor:
     ```sh
     docker-compose -f Provedor/compose.yaml up --build
     ```
 
-3. Acesse os serviços:
+3. Construa e inicie os containers do cliente Miami:
+    ```sh
+    docker-compose -f Cliente-Miami/compose.yaml up --build
+    ```
+
+4. Construa e inicie os containers do cliente Redinha:
+    ```sh
+    docker-compose -f Cliente-Redinha/compose.yaml up --build
+    ```
+
+5. Acesse os serviços:
     - DNS: Porta 53
     - Proxy: Porta 80 (HTTP) e 443 (HTTPS)
     - Email: Portas 25, 587, 110, 143, 465
     - Webmail: [https://webmail.domeio.com](https://webmail.domeio.com)
-    - SSH: Porta 22
+    - SSH: Porta 22 (Provedor), Porta 2223 (Cliente Miami), Porta 2222 (Cliente Redinha)
 
 ## Logs
 
-Os logs de erro estão localizados em [Error](http://_vscodecontentref_/15).
+Os logs de erro estão localizados em `/var/log/nginx/error.log` para o Proxy e `/var/log/nginx/access.log` para o acesso.
 
 ## Contribuição
 
