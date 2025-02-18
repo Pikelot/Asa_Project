@@ -56,7 +56,19 @@ services:
       - "2222:22"
     networks:
       - beach-network
-
+  proxy-redinha:
+    build:
+      context: ./Containers/PROXY
+      dockerfile: Dockerfile
+    image: proxy-redinha
+    container_name: proxy
+    networks:
+      - beach-network
+      - proxy-praia
+    volumes:
+      - ./Containers/PROXY/Config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./Containers/PROXY/Config/nginx.conf:/etc/nginx/nginx.conf
+      - ./Containers/PROXY/Config/ssl:/etc/nginx/ssl
 volumes:
   db_data:
   wordpress_data:
