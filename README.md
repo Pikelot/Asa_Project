@@ -101,11 +101,11 @@ Asa_Project-5/
 **Acesso Seguro**:
 
 ```bash
-Provedor: porta 22
+> Provedor: porta 22
 
-Miami: porta 2223
+> Miami: porta 2223
 
-Redinha: porta 2222
+> Redinha: porta 2222
 ```
 
 🚀 Implantação
