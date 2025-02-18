@@ -124,20 +124,20 @@ Asa_Project-5/
 
 **Clone o Repositório**:
 
-```bash
+```sh
 git clone https://github.com/seu-usuario/Asa_Project-5.git
 cd Asa_Project-5
 ```
 
 **Implante a Infraestrutura Principal**:
 
-```bash
+```sh
 docker compose -f Provedor/compose.yaml up --build -d
 ```
 
 **Implante os Ambientes Cliente**
 
-```bash
+```sh
 # Para Miami
 docker compose -f Cliente-Miami/compose.yaml up -d
 
