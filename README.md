@@ -31,7 +31,7 @@ Asa_Project-5/
 ## 🛠️ Serviços Implementados
 
 
-# 🔍 DNS (BIND9)
+### 🔍 DNS (BIND9)
 
 echo "Texto normal"
 echo -e "\e[1;31mTEXTO DESTACADO\e[0m"
