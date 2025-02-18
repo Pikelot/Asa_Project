@@ -18,3 +18,9 @@ zone "redinha.com" {
     allow-transfer { any; };
 };
 
+zone "miami.com" {
+    type master;
+    file "/etc/bind/db.miami.com";
+    allow-transfer { any; };
+};
+

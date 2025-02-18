@@ -1,0 +1,69 @@
+services:    
+  db:
+    image: mariadb:latest
+    container_name: db-miami
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass
+    networks:
+      - beach-network
+    volumes:
+      - db_data:/var/lib/mysql
+#Containers de wordpress, um e dois. (usados para balancear carga primariamente)
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress-miami
+    depends_on:
+      - db-miami
+    restart: always
+    tty: true
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - beach-network
+      - proxy-praia
+    volumes:
+      - wordpress_data:/var/www/html
+  wordpress-2:
+    image: wordpress:latest
+    container_name: wordpress-2-miami
+    depends_on:
+      - db-miami
+    restart: always
+    tty: true
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - beach-network
+      - proxy-praia
+    volumes:
+      - wordpress_data:/var/www/html
+  ssh:
+    build:
+      context: ./Containers/SSH
+      dockerfile: Dockerfile
+    image: ssh
+    container_name: ssh-miami
+    ports:
+      - "2223:22"
+    networks:
+      - beach-network
+
+volumes:
+  db_data:
+  wordpress_data:
+
+#Redes {lembre-se sempre de criar a rede proxy praia com docker network create proxy-praia}
+networks:
+  beach-network:
+    driver: bridge
+  proxy-praia:
+    external: true
