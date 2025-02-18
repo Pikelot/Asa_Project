@@ -33,12 +33,15 @@ Asa_Project-5/
 ```bash
 🔍 DNS (BIND9)
 
+echo "Texto normal"
+echo -e "\e[1;31mTEXTO DESTACADO\e[0m"
+
   Zonas Configuradas:
 
     🏝️🍹⛱️🌞 🌊 domeio.com
 
     🏝️🍹⛱️🌞 🌊 redinha.com
-
+    
     🏝️🍹⛱️🌞 🌊 miami.com
 
     Portas: 53/TCP-UDP
