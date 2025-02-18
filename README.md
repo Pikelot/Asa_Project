@@ -33,24 +33,22 @@ Asa_Project-5/
 
 ### 🔍 DNS (BIND9)
 
-echo "Texto normal"
-echo -e "\e[1;31mTEXTO DESTACADO\e[0m"
+**Zonas Configuradas**:
+```plaintext
+  🏝️🍹⛱️🌞 🌊 domeio.com
 
-  Zonas Configuradas:
+  🏝️🍹⛱️🌞 🌊 redinha.com
+  
+  🏝️🍹⛱️🌞 🌊 miami.com
 
-    🏝️🍹⛱️🌞 🌊 domeio.com
+  Portas: 53/TCP-UDP
 
-    🏝️🍹⛱️🌞 🌊 redinha.com
-    
-    🏝️🍹⛱️🌞 🌊 miami.com
+  Features:
 
-    Portas: 53/TCP-UDP
+    Registros MX para e-mail
 
-    Features:
-
-      Registros MX para e-mail
-
-      CNAMEs para serviços
+    CNAMEs para serviços
+```
 
 🔒 Proxy Reverso (Nginx)
 
