@@ -20,7 +20,7 @@ services:
     restart: always
     tty: true
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: db-miami
       WORDPRESS_DB_USER: wpuser
       WORDPRESS_DB_PASSWORD: wppass
       WORDPRESS_DB_NAME: wordpress
@@ -37,7 +37,7 @@ services:
     restart: always
     tty: true
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: db-miami
       WORDPRESS_DB_USER: wpuser
       WORDPRESS_DB_PASSWORD: wppass
       WORDPRESS_DB_NAME: wordpress
