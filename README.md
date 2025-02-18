@@ -31,7 +31,7 @@ Asa_Project-5/
 # 🛠️ Serviços Implementados
 
 
-## 🔍 DNS (BIND9)
+### 🔍 DNS (BIND9)
 
   🌐**Zonas Configuradas**:
   ```plaintext
@@ -47,46 +47,54 @@ Asa_Project-5/
   Registros CNAME para alias de serviços
   ```
 
-## 🔒 Proxy Reverso (Nginx)
+### 🔒 Proxy Reverso (Nginx)
 
-**SSL**: 
+  **SSL**: 
+  
+  ```plaintext
+  Certificado autoassinado
+  ```
+  
+  **Redirecionamentos**:
+  
+  ```plaintext
+  HTTP → HTTPS
+  ```
+  
+  **Configs**:
+  ```plaintext
+  nginx.conf otimizado
+  ```
 
-```plaintext
-Certificado autoassinado
-```
+### 📧 Serviço de E-Mail (Postfix + Dovecot)
 
-**Redirecionamentos**:
+  **Protocolos Suportados**:
+  
+  ```plaintext
+  SMTP (25/587)
+  
+  IMAP (143/993)
+  ```
+  
+  **Segurança**:
+  
+  ```plaintext
+  TLS/SSL
+  ```
 
-```plaintext
-HTTP → HTTPS
-```
+  **Autenticação SASL**
 
-**Configs**:
-```plaintext
-nginx.conf otimizado
-```
+### 🌐 Webmail (Roundcube)
 
-📧 Serviço de E-Mail (Postfix + Dovecot)
-Protocolos Suportados:
-
-SMTP (25/587)
-
-IMAP (143/993)
-
-Segurança:
-
-TLS/SSL
-
-Autenticação SASL
-
-🌐 Webmail (Roundcube)
-Acesso: https://webmail.domeio.com
-
-Integração:
-
-IMAP/SMTP
-
-Gerenciamento de contas
+  ```plaintext
+  Acesso: https://webmail.domeio.com
+  ```
+  
+  **Integração**:
+  
+  ```plaintext
+  IMAP/SMTP
+  ```
 
 🔑 SSH
 Acesso Seguro:
