@@ -62,6 +62,9 @@ services:
       dockerfile: Dockerfile
     image: proxy
     container_name: proxy-redinha
+    depends_on:
+      - wordpress
+      - wordpress-2
     networks:
       - beach-network
       - proxy-praia
