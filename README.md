@@ -30,8 +30,8 @@ Asa_Project-5/
 
 ## 🛠️ Serviços Implementados
 
-```
-🔍 DNS (BIND9)
+```plaintext
+#🔍 DNS (BIND9)
 Zonas Configuradas:
 
 domeio.com
