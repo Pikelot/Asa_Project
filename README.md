@@ -70,10 +70,10 @@ Asa_Project-5/
 
   **Protocolos Suportados**:
   
-  ```plaintext
-  SMTP (25/587)
+  ```bash
+  > SMTP (25/587)
   
-  IMAP (143/993)
+  > IMAP (143/993)
   ```
   
   **Segurança**:
@@ -108,62 +108,63 @@ Asa_Project-5/
 > Redinha: porta 2222
 ```
 
-🚀 Implantação
-Pré-requisitos
-Docker 23.0+
+# 🚀 Implantação
 
-Docker Compose 2.20+
+### Pré-requisitos:
 
-4GB RAM livre
+```bash
+> Docker 23.0+
 
-Passo a Passo
+> Docker Compose 2.20+
 
-Clone o Repositório
+> 4GB RAM livre
+```
 
-bash
+### Passo a Passo:
+
+**Clone o Repositório**:
+
+```bash
 git clone https://github.com/seu-usuario/Asa_Project-5.git
 cd Asa_Project-5
-Implante a Infraestrutura Principal
+```
 
-bash
+**Implante a Infraestrutura Principal**:
+
+```bash
 docker compose -f Provedor/compose.yaml up --build -d
-Implante os Ambientes Cliente
+```
 
-bash
+**Implante os Ambientes Cliente**
+
+```bash
 # Para Miami
 docker compose -f Cliente-Miami/compose.yaml up -d
 
 # Para Redinha
 docker compose -f Cliente-Redinha/compose.yaml up -d
+```
 
-📊 Monitoramento
+# 🛡️ Segurança
 
-Logs em Tempo Real
+***Certificados SSL**:
 
-bash
-# Nginx                    
-docker logs -f proxy       
-
-# Serviço de E-Mail
-docker logs -f mailserver
-Métricas de Desempenho
-bash
-Copy
-docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
-🛡️ Segurança
-Certificados SSL
-
+```plaintext
 Localização: Provedor/Containers/PROXY/Config/ssl/
-
 Logs centralizados em /var/log/asa/
+```
 
-📄 Licença
-Distribuído sob licença MIT. Veja LICENSE para detalhes.
+#📄 Licença
 
-Equipe ASA 2025
-📧 Contato | 🌐 Documentação Técnica | 🐛 Reportar Bug
+**Distribuído sob licença MIT. Veja LICENSE para detalhes.**
 
-Este README inclui:
+# Equipe ASA 2025
+
+📧 Contato : <span style="color:red">silvrt3d@gmail.com</span>
+
+# Este README inclui:
+
+```bash
 - Badges profissionais
 - Diagrama de estrutura visual
 - Seções organizadas com emojis temáticos
@@ -172,3 +173,4 @@ Este README inclui:
 - Políticas de segurança claras
 - Guia de contribuição detalhado
 - Elementos de marcação moderna (CSS via shields.io)
+```
