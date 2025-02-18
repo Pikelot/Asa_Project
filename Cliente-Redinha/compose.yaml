@@ -60,8 +60,8 @@ services:
     build:
       context: ./Containers/PROXY
       dockerfile: Dockerfile
-    image: proxy-redinha
-    container_name: proxy
+    image: proxy
+    container_name: proxy-redinha
     networks:
       - beach-network
       - proxy-praia
