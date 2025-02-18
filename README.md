@@ -31,7 +31,7 @@ Asa_Project-5/
 # 🛠️ Serviços Implementados
 
 
-### 🔍 DNS (BIND9)
+## 🔍 DNS (BIND9)
 
   🌐**Zonas Configuradas**:
   ```plaintext
@@ -41,27 +41,30 @@ Asa_Project-5/
   ````
   🔧 **Configuração**:
   ```plaintext
-    Porta: 53 (TCP/UDP)
-    Recursos:
-    Registros MX para serviço de e-mail
-    Registros CNAME para alias de serviços
+  Porta: 53 (TCP/UDP)
+  Recursos:
+  Registros MX para serviço de e-mail
+  Registros CNAME para alias de serviços
   ```
 
-🔒 Proxy Reverso (Nginx)
+## 🔒 Proxy Reverso (Nginx)
 
-SSL: Certificado autoassinado
+**SSL**: 
 
-Redirecionamentos:
+```plaintext
+Certificado autoassinado
+```
 
+**Redirecionamentos**:
+
+```plaintext
 HTTP → HTTPS
+```
 
-Balanceamento de carga
-
-Configs:
-
+**Configs**:
+```plaintext
 nginx.conf otimizado
-
-Logs detalhados
+```
 
 📧 Serviço de E-Mail (Postfix + Dovecot)
 Protocolos Suportados:
@@ -93,7 +96,6 @@ Provedor: porta 22
 Miami: porta 2223
 
 Redinha: porta 2222
-```
 
 🚀 Implantação
 Pré-requisitos
