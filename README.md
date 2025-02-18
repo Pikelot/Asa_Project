@@ -35,19 +35,20 @@ Asa_Project-5/
 
 **Zonas Configuradas**:
 ```plaintext
-  🏝️🍹⛱️🌞 🌊 domeio.com
 
-  🏝️🍹⛱️🌞 🌊 redinha.com
-  
-  🏝️🍹⛱️🌞 🌊 miami.com
+🌐 Zonas Configuradas:
 
-  Portas: 53/TCP-UDP
+domeio.com
+redinha.com
+miami.com
 
-  Features:
+🔧 Configuração:
 
-    Registros MX para e-mail
+  Porta: 53 (TCP/UDP)
+  Recursos:
+  Registros MX para serviço de e-mail
+  Registros CNAME para alias de serviços
 
-    CNAMEs para serviços
 ```
 
 🔒 Proxy Reverso (Nginx)
