@@ -28,8 +28,9 @@ Asa_Project-5/
 └── README.md                       # Este documento
 ```
 
-🛠️ Serviços Implementados
+## 🛠️ Serviços Implementados
 
+```
 🔍 DNS (BIND9)
 Zonas Configuradas:
 
@@ -93,6 +94,7 @@ Provedor: porta 22
 Miami: porta 2223
 
 Redinha: porta 2222
+```
 
 🚀 Implantação
 Pré-requisitos
