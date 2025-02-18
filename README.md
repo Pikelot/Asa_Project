@@ -33,23 +33,19 @@ Asa_Project-5/
 
 ### 🔍 DNS (BIND9)
 
-**Zonas Configuradas**:
-```plaintext
-
-🌐 Zonas Configuradas:
-
-domeio.com
-redinha.com
-miami.com
-
-🔧 Configuração:
-
-  Porta: 53 (TCP/UDP)
-  Recursos:
-  Registros MX para serviço de e-mail
-  Registros CNAME para alias de serviços
-
-```
+  🌐**Zonas Configuradas**:
+  ```plaintext
+  domeio.com
+  redinha.com
+  miami.com
+  ````
+  🔧 **Configuração**:
+  ```plaintext
+    Porta: 53 (TCP/UDP)
+    Recursos:
+    Registros MX para serviço de e-mail
+    Registros CNAME para alias de serviços
+  ```
 
 🔒 Proxy Reverso (Nginx)
 
