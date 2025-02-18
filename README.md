@@ -30,23 +30,24 @@ Asa_Project-5/
 
 ## 🛠️ Serviços Implementados
 
-```plaintext
-## 🔍 DNS (BIND9)
-Zonas Configuradas:
+```bash
+🔍 DNS (BIND9)
 
-domeio.com
+  Zonas Configuradas:
 
-redinha.com
+    🏝️🍹⛱️🌞 🌊 domeio.com
 
-miami.com
+    🏝️🍹⛱️🌞 🌊 redinha.com
 
-Portas: 53/TCP-UDP
+    🏝️🍹⛱️🌞 🌊 miami.com
 
-Features:
+    Portas: 53/TCP-UDP
 
-Registros MX para e-mail
+    Features:
 
-CNAMEs para serviços
+      Registros MX para e-mail
+
+      CNAMEs para serviços
 
 🔒 Proxy Reverso (Nginx)
 
