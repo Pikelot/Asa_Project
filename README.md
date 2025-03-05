@@ -14,22 +14,33 @@ Um ambiente completo de provedor de serviços com integração Docker, incluindo
 # 📂 Estrutura do Projeto
 
 ```plaintext
-Asa_Project-5/
+ASA_PROJECT-11/
 ├── Provedor/
 │   ├── compose.yaml                # Orquestração principal
 │   └── Containers/
 │       ├── DNS/                    # Servidor BIND9
-│       ├── PROXY/                  # Nginx com SSL
 │       ├── MAIL/                   # Postfix + Dovecot
+│       ├── ORLA/                   # Serviço adicional (especifique sua função aqui)
+│       ├── PROXY/                  # Nginx com SSL
+│       ├── SSH/                    # Servidor OpenSSH
 │       ├── WEBMAIL/                # Roundcube
-│       └── SSH/                    # Servidor OpenSSH
 ├── Cliente-Miami/                  # Ambiente cliente 1
+│   ├── compose.yaml                # Orquestração do cliente
+│   └── Containers/
+│       ├── PROXY/                  # Proxy reverso do cliente
+│       ├── SSH/                    # Servidor OpenSSH
+│       ├── WORDPRESS/              # CMS hospedado
 ├── Cliente-Redinha/                # Ambiente cliente 2
-└── README.md                       # Este documento
+│   ├── compose.yaml                # Orquestração do cliente
+│   └── Containers/
+│       ├── PROXY/                  # Proxy reverso do cliente
+│       ├── SSH/                    # Servidor OpenSSH
+│       ├── WORDPRESS/              # CMS hospedado
+├── .gitignore                       # Arquivos ignorados pelo Git
+└── README.md                        # Este documento
 ```
 
 # 🛠️ Serviços Implementados
-
 
 ### 🔍 DNS (BIND9)
 
@@ -38,8 +49,8 @@ Asa_Project-5/
   domeio.com
   redinha.com
   miami.com
-  ````
-  🔧 **Configuração**:
+  ```
+  🛠 **Configuração**:
   ```plaintext
   Porta: 53 (TCP/UDP)
   Recursos:
@@ -49,18 +60,14 @@ Asa_Project-5/
 
 ### 🔒 Proxy Reverso (Nginx)
 
-  **SSL**: 
-  
+  **SSL**:
   ```plaintext
   Certificado autoassinado
   ```
-  
   **Redirecionamentos**:
-  
   ```plaintext
   HTTP → HTTPS
   ```
-  
   **Configs**:
   ```plaintext
   nginx.conf otimizado
@@ -69,19 +76,14 @@ Asa_Project-5/
 ### 📧 Serviço de E-Mail (Postfix + Dovecot)
 
   **Protocolos Suportados**:
-  
   ```bash
   > SMTP (25/587)
-  
   > IMAP (143/993)
   ```
-  
   **Segurança**:
-  
   ```plaintext
   TLS/SSL
   ```
-
   **Autenticação SASL**
 
 ### 🌐 Webmail (Roundcube)
@@ -89,9 +91,7 @@ Asa_Project-5/
   ```plaintext
   Acesso: https://webmail.domeio.com
   ```
-  
   **Integração**:
-  
   ```plaintext
   IMAP/SMTP
   ```
@@ -99,12 +99,9 @@ Asa_Project-5/
 ### 🔑 SSH
 
 **Acesso Seguro**:
-
 ```bash
 > Provedor: porta 22
-
 > Miami: porta 2223
-
 > Redinha: porta 2222
 ```
 
@@ -114,9 +111,7 @@ Asa_Project-5/
 
 ```bash
 > Docker 23.0+
-
 > Docker Compose 2.20+
-
 > 4GB RAM livre
 ```
 
@@ -125,8 +120,8 @@ Asa_Project-5/
 **Clone o Repositório**:
 
 ```sh
-git clone https://github.com/seu-usuario/Asa_Project-5.git
-cd Asa_Project-5
+git clone https://github.com/seu-usuario/ASA_PROJECT-11.git
+cd ASA_PROJECT-11
 ```
 
 **Implante a Infraestrutura Principal**:
@@ -154,7 +149,7 @@ Localização: Provedor/Containers/PROXY/Config/ssl/
 Logs centralizados em /var/log/asa/
 ```
 
-#📄 Licença
+# 📝 Licença
 
 **Distribuído sob licença MIT. Veja LICENSE para detalhes.**
 

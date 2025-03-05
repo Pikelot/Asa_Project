@@ -86,6 +86,19 @@ services:
     networks:
       - beach-network
 
+  orla:
+    build:
+      context: ./Containers/ORLA
+      dockerfile: Dockerfile
+    image: orla
+    container_name: orla
+    networks:
+      - beach-network
+    depends_on:
+      - proxy
+    volumes:
+      - ./Containers/ORLA/Config/index.html:/usr/share/nginx/html/index.html
+      
 networks:
   beach-network:
     driver: bridge

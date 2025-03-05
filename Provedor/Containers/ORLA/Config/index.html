@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Moderno</title>
+  <!-- Bootstrap para layout moderno -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #343a40;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header, footer {
+      background: #343a40;
+    }
+    header h1, footer {
+      color: #fff;
+    }
+    .terminal {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+      border-radius: 5px;
+    }
+    .terminal-input {
+      width: 100%;
+      background: #000;
+      color: #0f0;
+      border: none;
+      outline: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .card a {
+      text-decoration: none;
+    }
+  </style>
+<head>
+    <meta charset="UTF-8">
+    <title>Bem vindo ao ASA-PROJECT</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+<body>
+  <header class="p-3">
+    <div class="container">
+      <h1>Bem vindo ao ASA-PROJECT</h1>
+    </div>
+  </header>
+  <main class="container my-4">
+    <!-- Seção de Links -->
+    <section class="mb-4">
+      <h2>Servidores WEB</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Redinha</h5>
+              <p class="card-text">Acesse informações sobre o Godzilla.</p>
+              <a href="http://web.redinha.com" class="btn btn-primary" target="_blank">Visitar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Miami</h5>
+              <p class="card-text">Acesse o site do supermercado.</p>
+              <a href="http://web.miami.com" class="btn btn-primary" target="_blank">Visitar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Webmail</h5>
+              <p class="card-text">Acesse seu webmail.</p>
+              <a href="http://webmail.domeio.com" class="btn btn-primary" target="_blank">Visitar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Seção de Contato -->
+    <section>
+      <h2>Contato</h2>
+      <p>GitHub: <a href="https://github.com/Pikelot" target="_blank">github.com/Pikelot</a></p>
+      <p>Email: <a href="mailto:silvrt3d@gmail.com">silvrt3d@gmail.com</a></p>
+    </section>
+  </main>
+  
+  <footer class="p-3 text-center">
+    &copy; 2025 Meu Site Moderno
+  </footer>
+  
+  <!-- Bootstrap JS (opcional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Script para simular terminal -->
+  <script>
+    const terminal = document.getElementById('terminal');
+    const terminalInput = document.getElementById('terminal-input');
+
+    function appendToTerminal(text) {
+      const line = document.createElement('div');
+      line.textContent = text;
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    terminalInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim();
+        if (command !== "") {
+          appendToTerminal('> ' + command);
+          // Resposta simulada - em uma implementação real, comandos seriam processados no backend
+          appendToTerminal('Comando "' + command + '" não reconhecido.');
+          terminalInput.value = "";
+        }
+      }
+    });
+  </script>
+</body>
+</html>

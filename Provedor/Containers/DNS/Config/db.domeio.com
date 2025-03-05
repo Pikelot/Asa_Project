@@ -19,4 +19,5 @@ ns      IN  A   192.168.0.3
 domail  IN  A   192.168.0.3
 webmail IN  A   192.168.0.3
 www     IN  A   192.168.0.3
+orla    IN  A   192.168.0.3
 proxy   IN  CNAME www
